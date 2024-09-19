@@ -81,8 +81,6 @@ export default {
     return {
       months: ["上半年", "下半年"],
       tableRows: [[]],
-      lastRow: null,
-      lastColumn: null,
     };
   },
 
@@ -98,7 +96,7 @@ export default {
       const style = {};
       const year = this.date.getFullYear();
       const today = new Date();
-      const month = cell.text;
+      const halfYear = cell.text;
       const defaultValue = this.defaultValue
         ? Array.isArray(this.defaultValue)
           ? this.defaultValue
@@ -106,16 +104,16 @@ export default {
         : [];
       style.disabled =
         typeof this.disabledDate === "function"
-          ? datesInMonth(year, month).every(this.disabledDate)
+          ? datesInMonth(year, halfYear).every(this.disabledDate)
           : false;
       style.current =
         arrayFindIndex(
           coerceTruthyValueToArray(this.value),
-          (date) => date.getFullYear() === year && date.getMonth() === month
+          (date) => date.getFullYear() === year && (date.getMonth() > 5 ? 1 : 0) === halfYear
         ) >= 0;
       style.today =
         today.getFullYear() === year &&
-        (today.getMonth() > 5 ? 1 : 0) === month;
+        (today.getMonth() > 5 ? 1 : 0) === halfYear;
       style.default = defaultValue.some((date) =>
         this.cellMatchesDate(cell, date)
       );
