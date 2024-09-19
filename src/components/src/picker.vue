@@ -142,6 +142,8 @@ const DEFAULT_FORMATS = {
   year: "yyyy",
   years: "yyyy",
   halfyear: "yyyy-BB",
+  quarter: "yyyy-QQ",
+  quarters: "yyyy-QQ",
 };
 const HAVE_TRIGGER_TYPES = [
   "date",
@@ -160,6 +162,8 @@ const HAVE_TRIGGER_TYPES = [
   "years",
   "halfyear",
   "halfyears",
+  "quarter",
+  "quarters",
 ];
 const DATE_FORMATTER = function (value, format) {
   if (format === "timestamp") return value.getTime();
@@ -312,6 +316,20 @@ const TYPE_VALUE_RESOLVER_MAP = {
     parser: DATE_PARSER,
   },
   halfyears: {
+    formatter(value, format) {
+      return value.map((date) => DATE_FORMATTER(date, format));
+    },
+    parser(value, format) {
+      return (typeof value === "string" ? value.split(", ") : value).map(
+        (date) => (date instanceof Date ? date : DATE_PARSER(date, format))
+      );
+    },
+  },
+  quarter: {
+    formatter: DATE_FORMATTER,
+    parser: DATE_PARSER,
+  },
+  quarters: {
     formatter(value, format) {
       return value.map((date) => DATE_FORMATTER(date, format));
     },
@@ -575,6 +593,10 @@ export default {
         return "halfyear";
       } else if (this.type === "halfyears") {
         return "halfyears";
+      } else if (this.type === "quarter") {
+        return "quarter";
+      } else if (this.type === "quarters") {
+        return "quarters";
       }
 
       return "day";
@@ -841,7 +863,8 @@ export default {
         this.type === "dates" ||
         this.type === "years" ||
         this.type === "months" ||
-        this.type === "halfyears"
+        this.type === "halfyears" ||
+        this.type === "quarters"
       ) {
         // restore to former value
         const oldValue =

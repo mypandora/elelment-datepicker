@@ -34,7 +34,7 @@
    */
   var fecha = {};
   var token =
-    /d{1,4}|M{1,4}|B{1,2}|yy(?:yy)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
+    /d{1,4}|M{1,4}|Q{1,2}|B{1,2}|yy(?:yy)?|S{1,3}|Do|ZZ|([HhMsDm])\1?|[aA]|"[^"]*"|'[^']*'/g;
   var twoDigits = "\\d\\d?";
   var threeDigits = "\\d{3}";
   var fourDigits = "\\d{4}";
@@ -149,6 +149,14 @@
     MMMM: function (dateObj, i18n) {
       return i18n.monthNames[dateObj.getMonth()];
     },
+    Q: function (dateObj) {
+      const month = dateObj.getMonth();
+      return month > 8 ? "四" : month > 5 ? "三" : month > 2 ? "二" : "一";
+    },
+    QQ: function (dateObj) {
+      const month = dateObj.getMonth();
+      return pad(month > 8 ? 4 : month > 5 ? 3 : month > 2 ? 2 : 1);
+    },
     B: function (dateObj) {
       return dateObj.getMonth() > 5 ? "下" : "上";
     },
@@ -228,6 +236,13 @@
       twoDigits,
       function (d, v) {
         d.month = v - 1;
+      },
+    ],
+    Q: [
+      twoDigits,
+      function (d, v) {
+        d.month =
+          Number(v) === 4 ? 9 : Number(v) === 3 ? 6 : Number(v) === 2 ? 3 : 0;
       },
     ],
     B: [
@@ -320,6 +335,7 @@
   parseFlags.mm = parseFlags.m;
   parseFlags.hh = parseFlags.H = parseFlags.HH = parseFlags.h;
   parseFlags.MM = parseFlags.M;
+  parseFlags.QQ = parseFlags.Q;
   parseFlags.BB = parseFlags.B;
   parseFlags.ss = parseFlags.s;
   parseFlags.A = parseFlags.a;

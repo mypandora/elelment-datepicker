@@ -155,6 +155,16 @@
               :disabled-date="disabledDate"
             >
             </year-half-table>
+            <quarter-table
+              v-show="currentView === 'quarter'"
+              @pick="handleQuarterPick"
+              :selection-mode="selectionMode"
+              :value="value"
+              :default-value="defaultValue ? new Date(defaultValue) : null"
+              :date="date"
+              :disabled-date="disabledDate"
+            >
+            </quarter-table>
           </div>
         </div>
       </div>
@@ -225,6 +235,7 @@ import YearTable from "../basic/year-table";
 import MonthTable from "../basic/month-table";
 import DateTable from "../basic/date-table";
 import YearHalfTable from "../basic/year-half-table.vue";
+import QuarterTable from "../basic/quarter-table.vue";
 
 export default {
   mixins: [Locale],
@@ -276,10 +287,10 @@ export default {
         this.currentView = "year";
       } else if (newVal === "months") {
         this.currentView = "month";
-      } else if (newVal === "halfyear") {
+      } else if (newVal === "halfyear" || newVal === "halfyears") {
         this.currentView = "halfyear";
-      } else if (newVal === "halfyears") {
-        this.currentView = "halfyear";
+      } else if (newVal === "quarter" || newVal === "quarters") {
+        this.currentView = "quarter";
       }
     },
   },
@@ -438,6 +449,28 @@ export default {
         this.currentView = "date";
       }
     },
+    handleQuarterPick(quarter) {
+      if (this.selectionMode === "quarter") {
+        this.date = modifyDate(
+          this.date,
+          this.year,
+          quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9,
+          1
+        );
+        this.emit(this.date);
+      } else if (this.selectionMode === "quarters") {
+        this.emit(quarter, true);
+      } else {
+        this.date = changeYearMonthAndClampDate(
+          this.date,
+          this.year,
+          quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9
+        );
+        // TODO: should emit intermediate value ??
+        // this.emit(this.date);
+        this.currentView = "date";
+      }
+    },
 
     handleDatePick(value) {
       if (this.selectionMode === "day") {
@@ -473,13 +506,16 @@ export default {
         this.emit(this.date);
       } else if (this.selectionMode === "years") {
         this.emit(year, true);
-      } else if (this.selectionMode === "halfyear") {
+      } else if (
+        this.selectionMode === "halfyear" ||
+        this.selectionMode === "halfyears"
+      ) {
         this.currentView = "halfyear";
-        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
-      } else if (this.selectionMode === "halfyears") {
-        this.currentView = "halfyear";
-        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
-        this.emit(year, true);
+      } else if (
+        this.selectionMode === "quarter" ||
+        this.selectionMode === "quarters"
+      ) {
+        this.currentView = "quarter";
       } else {
         // TODO: should emit intermediate value ??
         // this.emit(this.date, true);
@@ -531,6 +567,11 @@ export default {
         this.selectionMode === "halfyears"
       ) {
         this.currentView = "halfyear";
+      } else if (
+        this.selectionMode === "quarter" ||
+        this.selectionMode === "quarters"
+      ) {
+        this.currentView = "quarter";
       } else {
         this.currentView = "date";
       }
@@ -679,6 +720,7 @@ export default {
     ElInput,
     ElButton,
     YearHalfTable,
+    QuarterTable,
   },
 
   data() {
