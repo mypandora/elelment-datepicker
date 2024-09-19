@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import ElDatePicker from "./components/index";
+import ElDatePicker from "../packages/datepicker/index";
 
 export default {
   name: "App",
