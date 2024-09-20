@@ -104,7 +104,10 @@ export default {
         : [];
       style.disabled =
         typeof this.disabledDate === "function"
-          ? datesInMonth(year, month).every(this.disabledDate)
+          ? datesInMonth(
+              year,
+              quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9
+            ).every(this.disabledDate)
           : false;
       style.current =
         arrayFindIndex(

@@ -1,7 +1,7 @@
 <template>
   <table @click="handleMonthTableClick" class="el-month-table">
     <tbody>
-      <tr v-for="(row, key) in rows" :key="key">
+      <tr v-for="(row, key) in halfYearRows" :key="key">
         <td :class="getCellStyle(cell)" v-for="(cell, key) in row" :key="key">
           <div>
             <a class="cell">{{ months[cell.text] }}</a>
@@ -109,7 +109,9 @@ export default {
       style.current =
         arrayFindIndex(
           coerceTruthyValueToArray(this.value),
-          (date) => date.getFullYear() === year && (date.getMonth() > 5 ? 1 : 0) === halfYear
+          (date) =>
+            date.getFullYear() === year &&
+            (date.getMonth() > 5 ? 1 : 0) === halfYear
         ) >= 0;
       style.today =
         today.getFullYear() === year &&
@@ -161,7 +163,7 @@ export default {
   },
 
   computed: {
-    rows() {
+    halfYearRows() {
       // TODO: refactory rows / getCellClasses
       const rows = this.tableRows;
       const disabledDate = this.disabledDate;

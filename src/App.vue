@@ -54,7 +54,7 @@
           type="quarter"
           placeholder="选择季"
           format="yyyy 年第Q季度"
-          value-format="yyyyQQ[QQ]"
+          value-format="yyyyQQ[SS]"
         >
         </el-date-picker>
       </div>
@@ -65,7 +65,7 @@
           type="quarters"
           placeholder="选择季"
           format="yyyy 年第Q季度"
-          value-format="yyyyQQ[QQ]"
+          value-format="yyyyQQ[SS]"
         >
         </el-date-picker>
       </div>
@@ -93,6 +93,24 @@
         </el-date-picker>
       </div>
     </div>
+    <p>动态测试</p>
+    <div class="box">
+      <button type="button" @click="handleYear">切换为年度</button>
+      <button type="button" @click="handleHalfyear">切换为半年度</button>
+      <button type="button" @click="handleQuarter">切换为季度</button>
+      <button type="button" @click="handleMonth">切换为月度</button>
+      <div class="item">
+        <div>值：{{ value }}</div>
+        <el-date-picker
+          v-model="value"
+          :type="type"
+          placeholder="选择季"
+          :format="format"
+          :value-format="valueFormat"
+        >
+        </el-date-picker>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -114,16 +132,50 @@ export default {
       value31: "",
       value4: "",
       value41: "",
+      //
+      value: "",
+      type: "quarter",
+      format: "yyyy 年第Q季度",
+      valueFormat: "yyyyQQ[SS]",
     };
+  },
+  methods: {
+    handleYear() {
+      this.value = "2024YY";
+      this.type = "year";
+      this.format = "yyyy 年";
+      this.valueFormat = "yyyy[YY]";
+    },
+    handleHalfyear() {
+      this.value = "202402HY";
+      this.type = "halfyear";
+      this.format = "yyyy 年B半年";
+      this.valueFormat = "yyyyBB[HY]";
+    },
+    handleQuarter() {
+      this.value = "202403SS";
+      this.type = "quarter";
+      this.format = "yyyy 年第Q季度";
+      this.valueFormat = "yyyyQQ[SS]";
+    },
+    handleMonth() {
+      this.value = "202409MM";
+      this.type = "month";
+      this.format = "yyyy 年 MM 月";
+      this.valueFormat = "yyyyMM[MM]";
+    },
   },
 };
 </script>
 
 <style>
 .box {
-  columns: 2 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 300px); /* 每行4列，每列宽度300px */
+  gap: 10px; /* 可选，列之间的间距 */
+  justify-content: center; /* 水平居中对齐 */
 }
 .item {
-  padding: 8px;
+  padding: 20px;
 }
 </style>
