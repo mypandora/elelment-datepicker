@@ -242,8 +242,6 @@ import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
 import TimePicker from "./time";
 import DateTable from "../basic/date-table";
-import ElInput from "element-ui/packages/input";
-import ElButton from "element-ui/packages/button";
 
 const calcDefaultValue = (defaultValue) => {
   if (Array.isArray(defaultValue)) {
@@ -809,6 +807,6 @@ export default {
     },
   },
 
-  components: { TimePicker, DateTable, ElInput, ElButton },
+  components: { TimePicker, DateTable },
 };
 </script>

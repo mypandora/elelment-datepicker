@@ -105,8 +105,6 @@ import {
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
 import MonthTable from "../basic/month-table";
-import ElInput from "element-ui/packages/input";
-import ElButton from "element-ui/packages/button";
 
 const calcDefaultValue = (defaultValue) => {
   if (Array.isArray(defaultValue)) {
@@ -319,6 +317,6 @@ export default {
     },
   },
 
-  components: { MonthTable, ElInput, ElButton },
+  components: { MonthTable },
 };
 </script>

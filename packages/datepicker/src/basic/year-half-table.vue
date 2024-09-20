@@ -148,7 +148,8 @@ export default {
           arrayFindIndex(
             value,
             (date) =>
-              date.getFullYear() === year && date.getMonth() === halfYear
+              date.getFullYear() === year &&
+              (date.getMonth() > 6 ? 1 : 0) === halfYear
           ) >= 0
             ? removeFromArray(
                 value,

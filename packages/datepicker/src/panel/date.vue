@@ -188,7 +188,8 @@
             selectionMode !== 'dates' &&
             selectionMode !== 'months' &&
             selectionMode !== 'years' &&
-            selectionMode !== 'halfyears'
+            selectionMode !== 'halfyears' &&
+            selectionMode !== 'quarters'
           "
         >
           {{ t("el.datepicker.now") }}
@@ -228,8 +229,6 @@ import {
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
-import ElInput from "element-ui/packages/input";
-import ElButton from "element-ui/packages/button";
 import TimePicker from "./time";
 import YearTable from "../basic/year-table";
 import MonthTable from "../basic/month-table";
@@ -258,6 +257,8 @@ export default {
       if (this.selectionMode === "dates" && this.value) return;
       if (this.selectionMode === "months" && this.value) return;
       if (this.selectionMode === "years" && this.value) return;
+      if (this.selectionMode === "halfyears" && this.value) return;
+      if (this.selectionMode === "quarters" && this.value) return;
       if (isDate(val)) {
         this.date = new Date(val);
       } else {
@@ -506,17 +507,17 @@ export default {
         this.emit(this.date);
       } else if (this.selectionMode === "years") {
         this.emit(year, true);
-      } else if (
-        this.selectionMode === "halfyear" ||
-        this.selectionMode === "halfyears"
-      ) {
+      } else if (this.selectionMode === "halfyear") {
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         this.currentView = "halfyear";
-      } else if (
-        this.selectionMode === "quarter" ||
-        this.selectionMode === "quarters"
-      ) {
+      } else if (this.selectionMode === "halfyears") {
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
+        this.currentView = "halfyear";
+      } else if (this.selectionMode === "quarter") {
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         this.currentView = "quarter";
       } else {
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         // TODO: should emit intermediate value ??
         // this.emit(this.date, true);
         this.currentView = "month";
@@ -717,8 +718,6 @@ export default {
     YearTable,
     MonthTable,
     DateTable,
-    ElInput,
-    ElButton,
     YearHalfTable,
     QuarterTable,
   },

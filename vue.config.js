@@ -1,4 +1,12 @@
-const { defineConfig } = require("@vue/cli-service");
-module.exports = defineConfig({
-  transpileDependencies: true,
-});
+module.exports = {
+  // configureWebpack: {
+  //   externals: {
+  //     "element-ui": {
+  //       commonjs: "element-ui",
+  //       commonjs2: "element-ui",
+  //       root: "ELEMENT",
+  //     },
+  //   },
+  // },
+  transpileDependencies: ["element-ui"],
+};

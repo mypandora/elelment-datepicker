@@ -178,4 +178,10 @@ export default {
 .item {
   padding: 20px;
 }
+
+@media screen and (max-width: 1000px) {
+  .box {
+    grid-template-columns: repeat(2, 300px); /* 每行2列，每列宽度300px */
+  }
+}
 </style>

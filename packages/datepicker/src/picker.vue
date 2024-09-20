@@ -110,7 +110,6 @@ import {
 } from "../utils/date-util";
 import Popper from "element-ui/src/utils/vue-popper";
 import Emitter from "element-ui/src/mixins/emitter";
-import ElInput from "element-ui/packages/input";
 import merge from "element-ui/src/utils/merge";
 
 const NewPopper = {
@@ -477,8 +476,6 @@ export default {
       default: true,
     },
   },
-
-  components: { ElInput },
 
   directives: { Clickoutside },
 
