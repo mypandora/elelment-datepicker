@@ -240,8 +240,8 @@ import {
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
-import TimePicker from "./time";
-import DateTable from "../basic/date-table";
+import TimePicker from "./time.vue";
+import DateTable from "../basic/date-table.vue";
 
 const calcDefaultValue = (defaultValue) => {
   if (Array.isArray(defaultValue)) {

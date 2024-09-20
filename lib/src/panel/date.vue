@@ -176,7 +176,8 @@
           (currentView === 'date' ||
             currentView === 'month' ||
             currentView === 'year' ||
-            currentView === 'halfyear')
+            currentView === 'halfyear' ||
+            currentView === 'quarter')
         "
       >
         <el-button
@@ -229,10 +230,10 @@ import {
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
-import TimePicker from "./time";
-import YearTable from "../basic/year-table";
-import MonthTable from "../basic/month-table";
-import DateTable from "../basic/date-table";
+import TimePicker from "./time.vue";
+import YearTable from "../basic/year-table.vue";
+import MonthTable from "../basic/month-table.vue";
+import DateTable from "../basic/date-table.vue";
 import YearHalfTable from "../basic/year-half-table.vue";
 import QuarterTable from "../basic/quarter-table.vue";
 
@@ -770,7 +771,8 @@ export default {
         this.selectionMode === "dates" ||
         this.selectionMode === "months" ||
         this.selectionMode === "years" ||
-        this.selectionMode === "halfyears"
+        this.selectionMode === "halfyears" ||
+        this.selectionMode === "quarters"
       );
     },
 

@@ -150,11 +150,11 @@ import {
   getRangeMinutes,
   modifyTime,
 } from "../../utils/date-util";
-import ElScrollbar from "element-ui/packages/scrollbar";
+// import ElScrollbar from "element-ui/packages/scrollbar";
 import RepeatClick from "element-ui/src/directives/repeat-click";
 
 export default {
-  components: { ElScrollbar },
+  // components: { ElScrollbar },
 
   directives: {
     repeatClick: RepeatClick,

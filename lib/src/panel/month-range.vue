@@ -104,7 +104,7 @@ import {
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
-import MonthTable from "../basic/month-table";
+import MonthTable from "../basic/month-table.vue";
 
 const calcDefaultValue = (defaultValue) => {
   if (Array.isArray(defaultValue)) {
