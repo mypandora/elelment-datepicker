@@ -8,7 +8,9 @@
       type === 'dates' ||
       type === 'week' ||
       type === 'years' ||
-      type === 'months'
+      type === 'months' ||
+      type === 'halfyears' ||
+      type === 'quarters'
     "
     :disabled="pickerDisabled"
     :size="pickerSize"

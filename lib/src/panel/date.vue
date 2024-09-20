@@ -227,6 +227,10 @@ import {
   extractDateFormat,
   extractTimeFormat,
   timeWithinRange,
+  getHalfYearByMonth,
+  getMonthByHalfYear,
+  getQuarterByMonth,
+  getMonthByQuarter
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
@@ -435,8 +439,8 @@ export default {
       }
     },
     handleHalfYearPick(halfYear) {
-      if (this.selectionMode === "halfyear") {
-        this.date = modifyDate(this.date, this.year, halfYear > 0 ? 6 : 0, 1);
+      if (this.selectionMode === "halfyear") { 
+        this.date = modifyDate(this.date, this.year, getMonthByHalfYear(halfYear), 1);
         this.emit(this.date);
       } else if (this.selectionMode === "halfyears") {
         this.emit(halfYear, true);
@@ -444,7 +448,7 @@ export default {
         this.date = changeYearMonthAndClampDate(
           this.date,
           this.year,
-          halfYear > 0 ? 6 : 0
+          getMonthByHalfYear(halfYear)
         );
         // TODO: should emit intermediate value ??
         // this.emit(this.date);
@@ -456,7 +460,7 @@ export default {
         this.date = modifyDate(
           this.date,
           this.year,
-          quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9,
+          getMonthByQuarter(quarter),
           1
         );
         this.emit(this.date);
@@ -466,7 +470,7 @@ export default {
         this.date = changeYearMonthAndClampDate(
           this.date,
           this.year,
-          quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9
+          getMonthByQuarter(quarter),
         );
         // TODO: should emit intermediate value ??
         // this.emit(this.date);

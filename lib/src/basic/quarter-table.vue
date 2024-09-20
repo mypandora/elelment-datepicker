@@ -1,10 +1,10 @@
 <template>
-  <table @click="handleMonthTableClick" class="el-month-table">
+  <table @click="handleQuarterTableClick" class="el-month-table">
     <tbody>
       <tr v-for="(row, key) in rows" :key="key">
         <td :class="getCellStyle(cell)" v-for="(cell, key) in row" :key="key">
           <div>
-            <a class="cell">{{ months[cell.text] }}</a>
+            <a class="cell">{{ quarters[cell.text] }}</a>
           </div>
         </td>
       </tr>
@@ -19,6 +19,8 @@ import {
   range,
   getDayCountOfMonth,
   nextDate,
+  getQuarterByMonth,
+  getMonthByQuarter,
 } from "../../utils/date-util";
 import { hasClass } from "element-ui/src/utils/dom";
 import {
@@ -34,10 +36,13 @@ const datesInMonth = (year, month) => {
 };
 
 const clearDate = (date) => {
-  return new Date(date.getFullYear(), date.getMonth() > 5 ? 6 : 0);
+  return new Date(
+    date.getFullYear(),
+    getMonthByQuarter(getQuarterByMonth(date))
+  );
 };
 
-const getHalfYearTimestamp = function (time) {
+const getQuarterTimestamp = function (time) {
   if (typeof time === "number" || typeof time === "string") {
     return clearDate(new Date(time)).getTime();
   } else if (time instanceof Date) {
@@ -79,7 +84,7 @@ export default {
 
   data() {
     return {
-      months: ["第一季度", "第二季度", "第三季度", "第四季度"],
+      quarters: ["第一季度", "第二季度", "第三季度", "第四季度"],
       tableRows: [[], []],
     };
   },
@@ -104,33 +109,18 @@ export default {
         : [];
       style.disabled =
         typeof this.disabledDate === "function"
-          ? datesInMonth(
-              year,
-              quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9
-            ).every(this.disabledDate)
+          ? datesInMonth(year, getMonthByQuarter(quarter)).every(
+              this.disabledDate
+            )
           : false;
       style.current =
         arrayFindIndex(
           coerceTruthyValueToArray(this.value),
           (date) =>
-            date.getFullYear() === year &&
-            (date.getMonth() > 8
-              ? 3
-              : date.getMonth() > 5
-              ? 2
-              : date.getMonth() > 2
-              ? 1
-              : 0) === quarter
+            date.getFullYear() === year && getQuarterByMonth(date) === quarter
         ) >= 0;
       style.today =
-        today.getFullYear() === year &&
-        (today.getMonth() > 8
-          ? 3
-          : today.getMonth() > 5
-          ? 2
-          : today.getMonth() > 2
-          ? 1
-          : 0) === quarter;
+        today.getFullYear() === year && getQuarterByMonth(today) === quarter;
       style.default = defaultValue.some((date) =>
         this.cellMatchesDate(cell, date)
       );
@@ -139,11 +129,10 @@ export default {
     },
     getQuarterOfCell(quarter) {
       const year = this.date.getFullYear();
-      const month =
-        quarter === 0 ? 0 : quarter === 1 ? 3 : quarter === 2 ? 6 : 9;
+      const month = getMonthByQuarter(quarter);
       return new Date(year, month, 1);
     },
-    handleMonthTableClick(event) {
+    handleQuarterTableClick(event) {
       let target = event.target;
       if (target.tagName === "A") {
         target = target.parentNode.parentNode;
@@ -163,7 +152,8 @@ export default {
         const newValue =
           arrayFindIndex(
             value,
-            (date) => date.getFullYear() === year && date.getMonth() === quarter
+            (date) =>
+              date.getFullYear() === year && getQuarterByMonth(date) === quarter
           ) >= 0
             ? removeFromArray(
                 value,
@@ -183,7 +173,7 @@ export default {
       const rows = this.tableRows;
       const disabledDate = this.disabledDate;
       const selectedDate = [];
-      const now = getHalfYearTimestamp(new Date());
+      const now = getQuarterTimestamp(new Date());
 
       for (let i = 0; i < 2; i++) {
         const row = rows[i];
@@ -202,7 +192,7 @@ export default {
           const index = i * 2 + j;
           const time = new Date(
             this.date.getFullYear(),
-            index === 0 ? 0 : index === 1 ? 3 : index === 2 ? 6 : 9
+            getMonthByQuarter(index) // 0,3,6,9
           ).getTime();
           const isToday = time === now;
 

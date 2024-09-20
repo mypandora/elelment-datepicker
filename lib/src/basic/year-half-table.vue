@@ -1,10 +1,10 @@
 <template>
-  <table @click="handleMonthTableClick" class="el-month-table">
+  <table @click="handleHalfYearTableClick" class="el-month-table">
     <tbody>
       <tr v-for="(row, key) in halfYearRows" :key="key">
         <td :class="getCellStyle(cell)" v-for="(cell, key) in row" :key="key">
           <div>
-            <a class="cell">{{ months[cell.text] }}</a>
+            <a class="cell">{{ halfYears[cell.text] }}</a>
           </div>
         </td>
       </tr>
@@ -19,6 +19,8 @@ import {
   range,
   getDayCountOfMonth,
   nextDate,
+  getHalfYearByMonth,
+  getMonthByHalfYear,
 } from "../../utils/date-util";
 import { hasClass } from "element-ui/src/utils/dom";
 import {
@@ -34,7 +36,10 @@ const datesInMonth = (year, month) => {
 };
 
 const clearDate = (date) => {
-  return new Date(date.getFullYear(), date.getMonth() > 5 ? 6 : 0);
+  return new Date(
+    date.getFullYear(),
+    getMonthByHalfYear(getHalfYearByMonth(date))
+  );
 };
 
 const getHalfYearTimestamp = function (time) {
@@ -79,7 +84,7 @@ export default {
 
   data() {
     return {
-      months: ["上半年", "下半年"],
+      halfYears: ["上半年", "下半年"],
       tableRows: [[]],
     };
   },
@@ -104,18 +109,18 @@ export default {
         : [];
       style.disabled =
         typeof this.disabledDate === "function"
-          ? datesInMonth(year, halfYear).every(this.disabledDate)
+          ? datesInMonth(year, getMonthByHalfYear(halfYear)).every(
+              this.disabledDate
+            )
           : false;
       style.current =
         arrayFindIndex(
           coerceTruthyValueToArray(this.value),
           (date) =>
-            date.getFullYear() === year &&
-            (date.getMonth() > 5 ? 1 : 0) === halfYear
+            date.getFullYear() === year && getHalfYearByMonth(date) === halfYear
         ) >= 0;
       style.today =
-        today.getFullYear() === year &&
-        (today.getMonth() > 5 ? 1 : 0) === halfYear;
+        today.getFullYear() === year && getHalfYearByMonth(today) === halfYear;
       style.default = defaultValue.some((date) =>
         this.cellMatchesDate(cell, date)
       );
@@ -124,10 +129,10 @@ export default {
     },
     getHalfyearOfCell(halfYear) {
       const year = this.date.getFullYear();
-      const month = halfYear === 0 ? 0 : 6;
+      const month = getMonthByHalfYear(halfYear);
       return new Date(year, month, 1);
     },
-    handleMonthTableClick(event) {
+    handleHalfYearTableClick(event) {
       let target = event.target;
       if (target.tagName === "A") {
         target = target.parentNode.parentNode;
@@ -149,7 +154,7 @@ export default {
             value,
             (date) =>
               date.getFullYear() === year &&
-              (date.getMonth() > 6 ? 1 : 0) === halfYear
+              getHalfYearByMonth(date) === halfYear
           ) >= 0
             ? removeFromArray(
                 value,
@@ -188,7 +193,7 @@ export default {
           const index = i * 2 + j;
           const time = new Date(
             this.date.getFullYear(),
-            index > 0 ? 6 : 0
+            getMonthByHalfYear(index) // 0, 6
           ).getTime();
           const isToday = time === now;
 
