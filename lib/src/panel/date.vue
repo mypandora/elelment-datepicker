@@ -521,6 +521,9 @@ export default {
       } else if (this.selectionMode === "quarter") {
         this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         this.currentView = "quarter";
+      } else if (this.selectionMode === "quarters") {
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
+        this.currentView = "quarter";
       } else {
         this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         // TODO: should emit intermediate value ??
@@ -546,7 +549,8 @@ export default {
         this.selectionMode === "dates" ||
         this.selectionMode === "months" ||
         this.selectionMode === "years" ||
-        this.selectionMode === "halfyears"
+        this.selectionMode === "halfyears" ||
+        this.selectionMode === "quarters"
       ) {
         this.emit(this.value);
       } else {

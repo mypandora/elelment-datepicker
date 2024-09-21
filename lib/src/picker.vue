@@ -626,7 +626,8 @@ export default {
         return this.type === "dates" ||
           this.type === "years" ||
           this.type === "months" ||
-          this.type === "halfyears"
+          this.type === "halfyears" || 
+          this.type === "quarters" 
           ? formattedValue.join(", ")
           : formattedValue;
       } else {
