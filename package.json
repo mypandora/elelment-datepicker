@@ -14,7 +14,8 @@
   },
   "scripts": {
     "dev": "vite",
-    "build": "vite build"
+    "build": "vite build",
+    "release": "release-it --cli"
   },
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.2",
