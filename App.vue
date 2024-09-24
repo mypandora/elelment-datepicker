@@ -92,6 +92,52 @@
         >
         </el-date-picker>
       </div>
+
+      <div class="item">
+        <div>值（日）：{{ value6 }}</div>
+        <el-date-picker
+          v-model="value6"
+          type="date"
+          placeholder="选择日"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyyMMdd[DD]"
+        >
+        </el-date-picker>
+      </div>
+      <div class="item">
+        <div>值（日）：{{ value61 }}</div>
+        <el-date-picker
+          v-model="value61"
+          type="dates"
+          placeholder="选择月"
+          format="yyyy 年 MM 月 dd 日"
+          value-format="yyyyMMdd[DD]"
+        >
+        </el-date-picker>
+      </div>
+
+      <div class="item">
+        <div>值（旬）：{{ value5 }}</div>
+        <el-date-picker
+          v-model="value5"
+          type="tenday"
+          placeholder="选择旬"
+          format="yyyy 年MM月T旬"
+          value-format="yyyyMMTT[TD]"
+        >
+        </el-date-picker>
+      </div>
+      <div class="item">
+        <div>值（旬）：{{ value51 }}</div>
+        <el-date-picker
+          v-model="value51"
+          type="tendays"
+          placeholder="选择旬"
+          format="yyyy 年MM月T旬"
+          value-format="yyyyMMTT[TD]"
+        >
+        </el-date-picker>
+      </div>
     </div>
     <p>动态测试</p>
     <div class="box">
@@ -99,6 +145,8 @@
       <button type="button" @click="handleHalfyear">切换为半年度</button>
       <button type="button" @click="handleQuarter">切换为季度</button>
       <button type="button" @click="handleMonth">切换为月度</button>
+      <button type="button" @click="handleTenDay">切换为旬</button>
+      <button type="button" @click="handleDay">切换为日</button>
       <div class="item">
         <div>值：{{ value }}</div>
         <el-date-picker
@@ -132,6 +180,10 @@ export default {
       value31: "",
       value4: "",
       value41: "",
+      value5: "",
+      value51: "",
+      value6: "",
+      value61: "",
       //
       value: "",
       type: "quarter",
@@ -163,6 +215,18 @@ export default {
       this.type = "month";
       this.format = "yyyy 年 MM 月";
       this.valueFormat = "yyyyMM[MM]";
+    },
+    handleTenDay() {
+      this.value = "20240901TD";
+      this.type = "tenday";
+      this.format = "yyyy 年 MM 月 T 旬";
+      this.valueFormat = "yyyyMMTT[TD]";
+    },
+    handleDay() {
+      this.value = "20240901DD";
+      this.type = "date";
+      this.format = "yyyy 年 MM 月 dd 日";
+      this.valueFormat = "yyyyMMdd[DD]";
     },
   },
 };

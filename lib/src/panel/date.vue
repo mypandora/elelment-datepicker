@@ -79,7 +79,7 @@
             <button
               type="button"
               @click="prevMonth"
-              v-show="currentView === 'date'"
+              v-show="currentView === 'date' || currentView === 'tenday'"
               :aria-label="t(`el.datepicker.prevMonth`)"
               class="el-picker-panel__icon-btn el-date-picker__prev-btn el-icon-arrow-left"
             ></button>
@@ -91,7 +91,7 @@
             >
             <span
               @click="showMonthPicker"
-              v-show="currentView === 'date'"
+              v-show="currentView === 'date' || currentView === 'tenday'"
               role="button"
               class="el-date-picker__header-label"
               :class="{ active: currentView === 'month' }"
@@ -106,7 +106,7 @@
             <button
               type="button"
               @click="nextMonth"
-              v-show="currentView === 'date'"
+              v-show="currentView === 'date' || currentView === 'tenday'"
               :aria-label="t(`el.datepicker.nextMonth`)"
               class="el-picker-panel__icon-btn el-date-picker__next-btn el-icon-arrow-right"
             ></button>
@@ -165,6 +165,16 @@
               :disabled-date="disabledDate"
             >
             </quarter-table>
+            <tenday-table
+              v-show="currentView === 'tenday'"
+              @pick="handleTendayPick"
+              :selection-mode="selectionMode"
+              :value="value"
+              :default-value="defaultValue ? new Date(defaultValue) : null"
+              :date="date"
+              :disabled-date="disabledDate"
+            >
+            </tenday-table>
           </div>
         </div>
       </div>
@@ -177,7 +187,8 @@
             currentView === 'month' ||
             currentView === 'year' ||
             currentView === 'halfyear' ||
-            currentView === 'quarter')
+            currentView === 'quarter' ||
+            currentView === 'tenday')
         "
       >
         <el-button
@@ -190,7 +201,8 @@
             selectionMode !== 'months' &&
             selectionMode !== 'years' &&
             selectionMode !== 'halfyears' &&
-            selectionMode !== 'quarters'
+            selectionMode !== 'quarters' &&
+            selectionMode !== 'tendays'
           "
         >
           {{ t("el.datepicker.now") }}
@@ -227,10 +239,9 @@ import {
   extractDateFormat,
   extractTimeFormat,
   timeWithinRange,
-  getHalfYearByMonth,
   getMonthByHalfYear,
-  getQuarterByMonth,
-  getMonthByQuarter
+  getMonthByQuarter,
+  getDayByTenday,
 } from "../../utils/date-util";
 import Clickoutside from "element-ui/src/utils/clickoutside";
 import Locale from "element-ui/src/mixins/locale";
@@ -240,6 +251,7 @@ import MonthTable from "../basic/month-table.vue";
 import DateTable from "../basic/date-table.vue";
 import YearHalfTable from "../basic/year-half-table.vue";
 import QuarterTable from "../basic/quarter-table.vue";
+import TendayTable from "../basic/tenday-table.vue";
 
 export default {
   mixins: [Locale],
@@ -264,6 +276,7 @@ export default {
       if (this.selectionMode === "years" && this.value) return;
       if (this.selectionMode === "halfyears" && this.value) return;
       if (this.selectionMode === "quarters" && this.value) return;
+      if (this.selectionMode === "tendays" && this.value) return;
       if (isDate(val)) {
         this.date = new Date(val);
       } else {
@@ -297,6 +310,8 @@ export default {
         this.currentView = "halfyear";
       } else if (newVal === "quarter" || newVal === "quarters") {
         this.currentView = "quarter";
+      } else if (newVal === "tenday" || newVal === "tendays") {
+        this.currentView = "tenday";
       }
     },
   },
@@ -431,6 +446,9 @@ export default {
         this.emit(this.date);
       } else if (this.selectionMode === "months") {
         this.emit(month, true);
+      } else if (this.selectionMode === "tenday") {
+        this.date = changeYearMonthAndClampDate(this.date, this.year, month);
+        this.currentView = "tenday";
       } else {
         this.date = changeYearMonthAndClampDate(this.date, this.year, month);
         // TODO: should emit intermediate value ??
@@ -439,8 +457,13 @@ export default {
       }
     },
     handleHalfYearPick(halfYear) {
-      if (this.selectionMode === "halfyear") { 
-        this.date = modifyDate(this.date, this.year, getMonthByHalfYear(halfYear), 1);
+      if (this.selectionMode === "halfyear") {
+        this.date = modifyDate(
+          this.date,
+          this.year,
+          getMonthByHalfYear(halfYear),
+          1
+        );
         this.emit(this.date);
       } else if (this.selectionMode === "halfyears") {
         this.emit(halfYear, true);
@@ -470,7 +493,30 @@ export default {
         this.date = changeYearMonthAndClampDate(
           this.date,
           this.year,
-          getMonthByQuarter(quarter),
+          getMonthByQuarter(quarter)
+        );
+        // TODO: should emit intermediate value ??
+        // this.emit(this.date);
+        this.currentView = "date";
+      }
+    },
+    handleTendayPick(tenday) {
+      if (this.selectionMode === "tenday") {
+        this.date = modifyDate(
+          this.date,
+          this.year,
+          this.month,
+          getDayByTenday(tenday)
+        );
+        this.emit(this.date);
+      } else if (this.selectionMode === "tendays") {
+        this.emit(tenday, true);
+      } else {
+        this.date = changeYearMonthAndClampDate(
+          this.date,
+          this.year,
+          this.month,
+          getDayByTenday(tenday)
         );
         // TODO: should emit intermediate value ??
         // this.emit(this.date);
@@ -524,6 +570,14 @@ export default {
       } else if (this.selectionMode === "quarters") {
         this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         this.currentView = "quarter";
+      } else if (this.selectionMode === "tenday") {
+        // TODO
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
+        this.currentView = "tenday";
+      } else if (this.selectionMode === "tendays") {
+        // TODO
+        this.date = changeYearMonthAndClampDate(this.date, year, this.month);
+        this.currentView = "tendays";
       } else {
         this.date = changeYearMonthAndClampDate(this.date, year, this.month);
         // TODO: should emit intermediate value ??
@@ -550,7 +604,8 @@ export default {
         this.selectionMode === "months" ||
         this.selectionMode === "years" ||
         this.selectionMode === "halfyears" ||
-        this.selectionMode === "quarters"
+        this.selectionMode === "quarters" ||
+        this.selectionMode === "tendays"
       ) {
         this.emit(this.value);
       } else {
@@ -582,6 +637,11 @@ export default {
         this.selectionMode === "quarters"
       ) {
         this.currentView = "quarter";
+      } else if (
+        this.selectionMode === "tenday" ||
+        this.selectionMode === "tendays"
+      ) {
+        this.currentView = "tenday";
       } else {
         this.currentView = "date";
       }
@@ -729,6 +789,7 @@ export default {
     DateTable,
     YearHalfTable,
     QuarterTable,
+    TendayTable,
   },
 
   data() {
@@ -780,7 +841,8 @@ export default {
         this.selectionMode === "months" ||
         this.selectionMode === "years" ||
         this.selectionMode === "halfyears" ||
-        this.selectionMode === "quarters"
+        this.selectionMode === "quarters" ||
+        this.selectionMode === "tendays"
       );
     },
 

@@ -10,7 +10,8 @@
       type === 'years' ||
       type === 'months' ||
       type === 'halfyears' ||
-      type === 'quarters'
+      type === 'quarters' ||
+      type === 'tendays'
     "
     :disabled="pickerDisabled"
     :size="pickerSize"
@@ -145,6 +146,8 @@ const DEFAULT_FORMATS = {
   halfyear: "yyyy-BB",
   quarter: "yyyy-QQ",
   quarters: "yyyy-QQ",
+  tenday: "yyyy-MM-TT",
+  tendays: "yyyy-MM-TT",
 };
 const HAVE_TRIGGER_TYPES = [
   "date",
@@ -165,6 +168,8 @@ const HAVE_TRIGGER_TYPES = [
   "halfyears",
   "quarter",
   "quarters",
+  "tenday",
+  "tendays",
 ];
 const DATE_FORMATTER = function (value, format) {
   if (format === "timestamp") return value.getTime();
@@ -331,6 +336,20 @@ const TYPE_VALUE_RESOLVER_MAP = {
     parser: DATE_PARSER,
   },
   quarters: {
+    formatter(value, format) {
+      return value.map((date) => DATE_FORMATTER(date, format));
+    },
+    parser(value, format) {
+      return (typeof value === "string" ? value.split(", ") : value).map(
+        (date) => (date instanceof Date ? date : DATE_PARSER(date, format))
+      );
+    },
+  },
+  tenday: {
+    formatter: DATE_FORMATTER,
+    parser: DATE_PARSER,
+  },
+  tendays: {
     formatter(value, format) {
       return value.map((date) => DATE_FORMATTER(date, format));
     },
@@ -596,6 +615,10 @@ export default {
         return "quarter";
       } else if (this.type === "quarters") {
         return "quarters";
+      } else if (this.type === "tenday") {
+        return "tenday";
+      } else if (this.type === "tendays") {
+        return "tendays";
       }
 
       return "day";
@@ -627,7 +650,8 @@ export default {
           this.type === "years" ||
           this.type === "months" ||
           this.type === "halfyears" || 
-          this.type === "quarters" 
+          this.type === "quarters" || 
+          this.type === "tendays" 
           ? formattedValue.join(", ")
           : formattedValue;
       } else {
@@ -864,7 +888,8 @@ export default {
         this.type === "years" ||
         this.type === "months" ||
         this.type === "halfyears" ||
-        this.type === "quarters"
+        this.type === "quarters" ||
+        this.type === "tendays"
       ) {
         // restore to former value
         const oldValue =
