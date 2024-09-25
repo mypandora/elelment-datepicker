@@ -16,6 +16,14 @@
     "build": "vite build",
     "release": "release-it --cli"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mypandora/elelment-datepicker.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mypandora/elelment-datepicker/issues"
+  },
+  "homepage": "https://github.com/mypandora/elelment-datepicker#readme",
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.2",
     "@vitejs/plugin-vue2": "^2.3.1",
