@@ -94,6 +94,29 @@
       </div>
 
       <div class="item">
+        <div>值（旬）：{{ value5 }}</div>
+        <el-date-picker
+          v-model="value5"
+          type="tenday"
+          placeholder="选择旬"
+          format="yyyy 年MM月T旬"
+          value-format="yyyyMMTT[TD]"
+        >
+        </el-date-picker>
+      </div>
+      <div class="item">
+        <div>值（旬）：{{ value51 }}</div>
+        <el-date-picker
+          v-model="value51"
+          type="tendays"
+          placeholder="选择旬"
+          format="yyyy 年MM月T旬"
+          value-format="yyyyMMTT[TD]"
+        >
+        </el-date-picker>
+      </div>
+
+      <div class="item">
         <div>值（日）：{{ value6 }}</div>
         <el-date-picker
           v-model="value6"
@@ -117,24 +140,24 @@
       </div>
 
       <div class="item">
-        <div>值（旬）：{{ value5 }}</div>
+        <div>值（时间）：{{ value7 }}</div>
         <el-date-picker
-          v-model="value5"
-          type="tenday"
-          placeholder="选择旬"
-          format="yyyy 年MM月T旬"
-          value-format="yyyyMMTT[TD]"
+          v-model="value7"
+          type="datetime"
+          placeholder="选择时间"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
         >
         </el-date-picker>
       </div>
       <div class="item">
-        <div>值（旬）：{{ value51 }}</div>
+        <div>值（时间）：{{ value71 }}</div>
         <el-date-picker
-          v-model="value51"
-          type="tendays"
-          placeholder="选择旬"
-          format="yyyy 年MM月T旬"
-          value-format="yyyyMMTT[TD]"
+          v-model="value71"
+          type="datetimerange"
+          placeholder="选择时间"
+          format="yyyy-MM-dd HH:mm:ss"
+          value-format="yyyy-MM-dd HH:mm:ss"
         >
         </el-date-picker>
       </div>
@@ -184,6 +207,9 @@ export default {
       value51: "",
       value6: "",
       value61: "",
+      value51: "",
+      value7: "",
+      value71: "",
       //
       value: "",
       type: "quarter",

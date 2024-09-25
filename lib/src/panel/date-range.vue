@@ -222,7 +222,7 @@
   </transition>
 </template>
 
-<script type="text/babel">
+<script>
 import {
   formatDate,
   parseDate,

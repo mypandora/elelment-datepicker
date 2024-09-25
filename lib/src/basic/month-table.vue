@@ -18,7 +18,7 @@
   </table>
 </template>
 
-<script type="text/babel">
+<script>
 import Locale from "element-ui/src/mixins/locale";
 import {
   isDate,

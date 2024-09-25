@@ -37,7 +37,7 @@
   </transition>
 </template>
 
-<script type="text/babel">
+<script>
 import {
   limitTimeRange,
   isDate,

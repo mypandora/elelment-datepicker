@@ -31,8 +31,8 @@
   </transition>
 </template>
 
-<script type="text/babel">
-// import ElScrollbar from "element-ui/packages/scrollbar";
+<script>
+import ElScrollbar from "element-ui/lib/scrollbar.js";
 import scrollIntoView from "element-ui/src/utils/scroll-into-view";
 
 const parseTime = function (time) {
@@ -91,7 +91,7 @@ const nextTime = function (time, step) {
 };
 
 export default {
-  // components: { ElScrollbar },
+  components: { ElScrollbar },
 
   watch: {
     value(val) {

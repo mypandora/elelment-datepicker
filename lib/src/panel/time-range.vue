@@ -68,7 +68,7 @@
   </transition>
 </template>
 
-<script type="text/babel">
+<script>
 import {
   parseDate,
   limitTimeRange,

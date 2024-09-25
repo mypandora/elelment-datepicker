@@ -1,14 +1,8 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue2";
-import vueJsx from "@vitejs/plugin-vue2-jsx";
 
 export default defineConfig({
-  plugins: [
-    vue(),
-    vueJsx({
-      // options are passed on to @vue/babel-preset-jsx
-    }),
-  ],
+  plugins: [vue()],
   build: {
     lib: {
       // 入口文件路径
@@ -28,12 +22,4 @@ export default defineConfig({
       },
     },
   },
-  // resolve: {
-  //   alias: [
-  //     {
-  //       find: "vue",
-  //       replacement: "vue/dist/vue.runtime.esm.js",
-  //     },
-  //   ],
-  // },
 });

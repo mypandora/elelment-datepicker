@@ -144,17 +144,17 @@
   </div>
 </template>
 
-<script type="text/babel">
+<script>
 import {
   getRangeHours,
   getRangeMinutes,
   modifyTime,
 } from "../../utils/date-util";
-// import ElScrollbar from "element-ui/packages/scrollbar";
+import ElScrollbar from "element-ui/lib/scrollbar.js";
 import RepeatClick from "element-ui/src/directives/repeat-click";
 
 export default {
-  // components: { ElScrollbar },
+  components: { ElScrollbar },
 
   directives: {
     repeatClick: RepeatClick,

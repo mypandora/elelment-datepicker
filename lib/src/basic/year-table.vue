@@ -43,7 +43,7 @@
   </table>
 </template>
 
-<script type="text/babel">
+<script>
 import { hasClass } from "element-ui/src/utils/dom";
 import {
   isDate,
