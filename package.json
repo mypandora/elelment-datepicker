@@ -34,6 +34,10 @@
     "vue": "2.7.14"
   },
   "packageManager": "pnpm@9.11.0",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
   "volta": {
     "node": "20.17.0"
   }
