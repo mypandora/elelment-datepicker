@@ -1,5 +1,12 @@
 
 
+## [0.0.4](https://github.com/mypandora/elelment-datepicker/compare/v0.0.3...v0.0.4) (2024-09-25)
+
+
+### Bug Fixes
+
+* 修复私有模式下无法发包问题 ([425963b](https://github.com/mypandora/elelment-datepicker/commit/425963b124f052485f7b8d3e58d17791d305a7e3))
+
 ## [0.0.3](https://github.com/mypandora/elelment-datepicker/compare/v0.0.2...v0.0.3) (2024-09-25)
 
 
