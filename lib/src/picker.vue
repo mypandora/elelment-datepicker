@@ -111,7 +111,7 @@ import {
   isDateObject,
   getWeekNumber,
 } from "../utils/date-util";
-import Popper from "element-ui/src/utils/vue-popper";
+import Popper from "../utils/vue-popper.js";
 import Emitter from "element-ui/src/mixins/emitter";
 import merge from "element-ui/src/utils/merge";
 
