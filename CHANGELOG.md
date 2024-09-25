@@ -1,5 +1,12 @@
 
 
+## [0.0.6](https://github.com/mypandora/elelment-datepicker/compare/v0.0.5...v0.0.6) (2024-09-25)
+
+
+### Bug Fixes
+
+* 修复与 commonjs 不兼容问题 ([95a4825](https://github.com/mypandora/elelment-datepicker/commit/95a482552f675d5c388a1e02b28a70eba9526441))
+
 ## [0.0.5](https://github.com/mypandora/elelment-datepicker/compare/v0.0.4...v0.0.5) (2024-09-25)
 
 ## [0.0.4](https://github.com/mypandora/elelment-datepicker/compare/v0.0.3...v0.0.4) (2024-09-25)
