@@ -18,12 +18,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:mypandora/elelment-datepicker.git"
+    "url": "git@github.com:mypandora/element-datepicker.git"
   },
   "bugs": {
-    "url": "https://github.com/mypandora/elelment-datepicker/issues"
+    "url": "https://github.com/mypandora/element-datepicker/issues"
   },
-  "homepage": "https://github.com/mypandora/elelment-datepicker#readme",
+  "homepage": "https://github.com/mypandora/element-datepicker#readme",
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.2",
     "@vitejs/plugin-vue2": "^2.3.1",
