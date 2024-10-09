@@ -69,4 +69,4 @@ npm install @mypandora/element-datepicker
 ### Attributes
 | 参数      | 说明          | 类型      | 可选值                           | 默认值  |
 |---------- |-------------- |---------- |--------------------------------  |-------- |
-| type | 显示类型 | string | year/halfyear/quarter/month/tenday/date/dates/tendays/months/quarters/halfyears/years week/datetime/datetimerange/ daterange/monthrange | date |
+| type | 显示类型 | string | year/halfyear/quarter/month/tenday/date/dates/tendays/months/quarters/halfyears/years/week/datetime/datetimerange/ daterange/monthrange | date |
