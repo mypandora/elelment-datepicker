@@ -449,6 +449,9 @@ export default {
       } else if (this.selectionMode === "tenday") {
         this.date = changeYearMonthAndClampDate(this.date, this.year, month);
         this.currentView = "tenday";
+      } else if (this.selectionMode === "tendays") {
+        this.date = changeYearMonthAndClampDate(this.date, this.year, month);
+        this.currentView = "tenday";
       } else {
         this.date = changeYearMonthAndClampDate(this.date, this.year, month);
         // TODO: should emit intermediate value ??
