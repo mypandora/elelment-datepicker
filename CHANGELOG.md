@@ -1,5 +1,13 @@
 
 
+## [0.0.7](https://github.com/mypandora/element-datepicker/compare/v0.0.6...v0.0.7) (2024-10-09)
+
+
+### Bug Fixes
+
+* 修复单词拼写错误 ([ec8f0bf](https://github.com/mypandora/element-datepicker/commit/ec8f0bfc2850e58c273907246c35042fcbea6642))
+* 修复旬多选时变成日期类型面板问题 ([8f93c88](https://github.com/mypandora/element-datepicker/commit/8f93c884f8e968a753919193938ff8d18f43526c))
+
 ## [0.0.6](https://github.com/mypandora/element-datepicker/compare/v0.0.5...v0.0.6) (2024-09-25)
 
 
