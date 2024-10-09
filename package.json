@@ -1,7 +1,21 @@
 {
   "name": "@mypandora/element-datepicker",
   "version": "0.0.7",
+  "description": "datepicker for element-ui",
+  "keywords": [
+    "vue",
+    "vue2",
+    "element-ui",
+    "element-datepicker",
+    "datepicker"
+  ],
+  "homepage": "https://github.com/mypandora/element-datepicker#readme",
+  "bugs": {
+    "url": "https://github.com/mypandora/element-datepicker/issues"
+  },
   "type": "module",
+  "license": "GPL-2.0-only",
+  "author": "mypandora",
   "files": [
     "dist"
   ],
@@ -11,19 +25,15 @@
     "import": "./dist/element-datepicker.js",
     "require": "./dist/element-datepicker.umd.cjs"
   },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:mypandora/element-datepicker.git"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "release": "release-it --cli"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mypandora/element-datepicker.git"
-  },
-  "bugs": {
-    "url": "https://github.com/mypandora/element-datepicker/issues"
-  },
-  "homepage": "https://github.com/mypandora/element-datepicker#readme",
   "devDependencies": {
     "@release-it/conventional-changelog": "^8.0.2",
     "@vitejs/plugin-vue2": "^2.3.1",
@@ -33,11 +43,11 @@
     "vite": "^5.2.10",
     "vue": "2.7.14"
   },
-  "packageManager": "pnpm@9.11.0",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/",
     "access": "public"
   },
+  "packageManager": "pnpm@9.11.0",
   "volta": {
     "node": "20.17.0"
   }
