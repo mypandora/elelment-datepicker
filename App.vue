@@ -117,9 +117,21 @@
       </div>
 
       <div class="item">
-        <div>值（日）：{{ value6 }}</div>
+        <div>值（周）：{{ value6 }}</div>
         <el-date-picker
           v-model="value6"
+          type="week"
+          placeholder="选择周"
+          format="yyyy 年第 WW 周"
+        >
+        </el-date-picker>
+      </div>
+      <div class="item"></div>
+
+      <div class="item">
+        <div>值（日）：{{ value7 }}</div>
+        <el-date-picker
+          v-model="value7"
           type="date"
           placeholder="选择日"
           format="yyyy 年 MM 月 dd 日"
@@ -128,9 +140,9 @@
         </el-date-picker>
       </div>
       <div class="item">
-        <div>值（日）：{{ value61 }}</div>
+        <div>值（日）：{{ value71 }}</div>
         <el-date-picker
-          v-model="value61"
+          v-model="value71"
           type="dates"
           placeholder="选择月"
           format="yyyy 年 MM 月 dd 日"
@@ -140,9 +152,9 @@
       </div>
 
       <div class="item">
-        <div>值（时间）：{{ value7 }}</div>
+        <div>值（时间）：{{ value8 }}</div>
         <el-date-picker
-          v-model="value7"
+          v-model="value8"
           type="datetime"
           placeholder="选择时间"
           format="yyyy-MM-dd HH:mm:ss"
@@ -151,9 +163,9 @@
         </el-date-picker>
       </div>
       <div class="item">
-        <div>值（时间）：{{ value71 }}</div>
+        <div>值（时间）：{{ value81 }}</div>
         <el-date-picker
-          v-model="value71"
+          v-model="value81"
           type="datetimerange"
           placeholder="选择时间"
           format="yyyy-MM-dd HH:mm:ss"
@@ -206,10 +218,10 @@ export default {
       value5: "",
       value51: "",
       value6: "",
-      value61: "",
-      value51: "",
       value7: "",
       value71: "",
+      value8: "",
+      value81: "",
       //
       value: "",
       type: "quarter",
