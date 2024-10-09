@@ -23,6 +23,8 @@ npm install @mypandora/element-datepicker
 
 2. 支持季度选择
 
+3. 支持旬选择
+
 
 ###  日期格式
 
@@ -61,3 +63,10 @@ npm install @mypandora/element-datepicker
 | `a`  | am/pm | 仅 `format` 可用，小写 | am |
 | `timestamp` | JS时间戳 | 仅 `value-format` 可用；组件绑定值为`number`类型 | 1483326245000 |
 | `[MM]` | 不需要格式化字符 | 使用方括号标识不需要格式化的字符 (如  [A] [MM])  | MM |
+
+:::
+
+### Attributes
+| 参数      | 说明          | 类型      | 可选值                           | 默认值  |
+|---------- |-------------- |---------- |--------------------------------  |-------- |
+| type | 显示类型 | string | year/halfyear/quarter/month/tenday/date/dates/tendays/months/quarters/halfyears/years week/datetime/datetimerange/ daterange/monthrange | date |
